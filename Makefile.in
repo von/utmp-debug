@@ -1,0 +1,14 @@
+# Support obj directories
+srcdir = @srcdir@
+VPATH = @srcdir@
+
+CFLAGS = @DEFS@ -I.
+
+all: udebug
+
+udebug: udebug.c
+	$(CC) $(CFLAGS) -o $@ $+
+
+# Doesn't build yet...
+utmp_clean: utmp_clean.c
+	$(CC) $(CFLAGS) -o $@ $+

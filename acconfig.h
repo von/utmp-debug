@@ -1,0 +1,9 @@
+#undef HAVE_SETUTENT
+#undef HAVE_SETUTXENT
+#undef HAVE_UPDWTMP
+#undef HAVE_UPDWTMPX
+#undef NO_UTX_EXIT
+#undef NO_UT_EXIT
+#undef NO_UT_HOST
+#undef NO_UT_PID
+#undef NO_UT_TYPE

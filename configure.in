@@ -1,0 +1,71 @@
+dnl
+dnl configure.in for utmp_debug stuff
+dnl
+AC_INIT(udebug.c)
+dnl
+dnl utmp checking stuff stolen from MIT Kerberos 5 aclocal.m4
+dnl
+AC_MSG_CHECKING([ut_pid in struct utmp])
+AC_CACHE_VAL(krb5_cv_struct_ut_pid,
+[AC_TRY_COMPILE(
+[#include <sys/types.h>
+#include <utmp.h>],
+[struct utmp ut; ut.ut_pid;],
+krb5_cv_struct_ut_pid=yes, krb5_cv_struct_ut_pid=no)])
+AC_MSG_RESULT($krb5_cv_struct_ut_pid)
+if test $krb5_cv_struct_ut_pid = no; then
+  AC_DEFINE(NO_UT_PID)
+fi
+AC_MSG_CHECKING([ut_type in struct utmp])
+AC_CACHE_VAL(krb5_cv_struct_ut_type,
+[AC_TRY_COMPILE(
+[#include <sys/types.h>
+#include <utmp.h>],
+[struct utmp ut; ut.ut_type;],
+krb5_cv_struct_ut_type=yes, krb5_cv_struct_ut_type=no)])
+AC_MSG_RESULT($krb5_cv_struct_ut_type)
+if test $krb5_cv_struct_ut_type = no; then
+  AC_DEFINE(NO_UT_TYPE)
+fi
+AC_MSG_CHECKING([ut_host in struct utmp])
+AC_CACHE_VAL(krb5_cv_struct_ut_host,
+[AC_TRY_COMPILE(
+[#include <sys/types.h>
+#include <utmp.h>],
+[struct utmp ut; ut.ut_host;],
+krb5_cv_struct_ut_host=yes, krb5_cv_struct_ut_host=no)])
+AC_MSG_RESULT($krb5_cv_struct_ut_host)
+if test $krb5_cv_struct_ut_host = no; then
+  AC_DEFINE(NO_UT_HOST)
+fi
+AC_MSG_CHECKING([ut_exit in struct utmp])
+AC_CACHE_VAL(krb5_cv_struct_ut_exit,
+[AC_TRY_COMPILE(
+[#include <sys/types.h>
+#include <utmp.h>],
+[struct utmp ut; ut.ut_exit;],
+krb5_cv_struct_ut_exit=yes, krb5_cv_struct_ut_exit=no)])
+AC_MSG_RESULT($krb5_cv_struct_ut_exit)
+if test $krb5_cv_struct_ut_exit = no; then
+  AC_DEFINE(NO_UT_EXIT)
+fi
+AC_MSG_CHECKING([ut_exit in struct utmpx])
+AC_CACHE_VAL(krb5_cv_struct_utx_exit,
+[AC_TRY_COMPILE(
+[#include <sys/types.h>
+#include <utmpx.h>],
+[struct utmpx ut; ut.ut_exit;],
+krb5_cv_struct_utx_exit=yes, krb5_cv_struct_utx_exit=no)])
+AC_MSG_RESULT($krb5_cv_struct_utx_exit)
+if test $krb5_cv_struct_utx_exit = no; then
+  AC_DEFINE(NO_UTX_EXIT)
+fi
+AC_FUNC_CHECK(setutent,AC_DEFINE(HAVE_SETUTENT))
+AC_FUNC_CHECK(setutxent,AC_DEFINE(HAVE_SETUTXENT))
+AC_FUNC_CHECK(updwtmp,AC_DEFINE(HAVE_UPDWTMP))
+AC_FUNC_CHECK(updwtmpx,AC_DEFINE(HAVE_UPDWTMPX))
+dnl
+dnl End utmp checking code stolen from MIT krb5 distribution
+dnl
+AC_CONFIG_HEADER(config.h)
+AC_OUTPUT(Makefile)
